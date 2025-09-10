@@ -6,10 +6,12 @@ import {Routes,Route} from "react-router-dom"
 import Signup from './pages/Signup'
 import Signin from './pages/Signin'
 import ForgotPassword from './pages/ForgotPassword'
+import usegetCurrentUser from './hooks/usegetCurrentUser'
 
 export const serverPath = "http://localhost:8080"
 function App() {
   const [count, setCount] = useState(0)
+  usegetCurrentUser();
 
   return (
     <Routes>
