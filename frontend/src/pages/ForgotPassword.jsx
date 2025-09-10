@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { IoArrowBackSharp } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import { serverPath } from '../App';
+import {toast,ToastContainer} from "react-toastify"
 
 import axios from "axios"
 const ForgotPassword = () => {
@@ -24,13 +25,16 @@ const ForgotPassword = () => {
             setLoading(true)
             const result = await axios.post(`${serverPath}/api/auth/sendotp`, { email }, { withCredentials: true })
             console.log(result);
-            setOtp(result.data.otp)
+            setOtp(result.data.otp);
+            toast.success("Otp Sent , Please check your Email  ! ")
+            
             setStep(2);
             setErr("")
             setLoading(false)
 
         } catch (error) {
             setErr(error.response.data.message);
+            toast.error("Error while sending otp ! ")
             setLoading(false)
         }
     }
@@ -41,6 +45,8 @@ const ForgotPassword = () => {
             setLoading(true)
             const result = await axios.post(`${serverPath}/api/auth/verifyotp`, { email, otp }, { withCredentials: true })
             console.log(result);
+            toast.success("Otp Verified Sucessfully  ! ")
+
             setStep(3)
             setErr("")
             setLoading(false)
@@ -48,6 +54,8 @@ const ForgotPassword = () => {
 
         } catch (error) {
             setErr(error.response.data.message)
+            toast.error("Error while setting up error .")
+
             setLoading(false)
         }
     }
@@ -59,11 +67,16 @@ const ForgotPassword = () => {
             }
             const result = await axios.post(`${serverPath}/api/auth/resetPassword`, { email, newPassword }, { withCredentials: true })
             console.log(result);
-            navigate("/signin")
+            navigate("/signin");
+            toast.success(" Passwors Changed Sucessfully !! ")
+
             setErr("")
         } catch (error) {
             setErr(error.response.data.message)
+
             setLoading(false)
+            toast.error("Error while saving new Password ! .")
+
         }
     
         
@@ -166,6 +179,7 @@ const ForgotPassword = () => {
                 }
     
             </div>
+            <ToastContainer/>
         </div>
     )
 

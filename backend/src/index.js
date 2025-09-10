@@ -6,6 +6,7 @@ dotenv.config(); // must be at the top
 
 import { connectDB } from "./config/dbconfig.js";
 import authRoutes from "./routes/auth.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
 const app = express();
 
@@ -23,6 +24,8 @@ connectDB();
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/auth", userRoutes);
+
 app.get("/", (req, res) => res.send("hey buddy"));
 
 // Server

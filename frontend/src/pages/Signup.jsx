@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import {toast,ToastContainer} from "react-toastify"
 import { FaEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -42,11 +43,17 @@ const Signup = () => {
         email:result.user.email,
       
 
-      },{withCredentials:true})
+      },{withCredentials:true});
+      setMobile("");
+      toast.success("User signup Sucess !!")
+     
+
       console.log(res)
       
     } catch (error) {
       console.log("Google signup errro " , error)
+      toast.error("Signup error !!")
+
       
     }
   }
@@ -60,11 +67,17 @@ const Signup = () => {
     console.log(result)
     setErr("");
     setLoading(false)
+    toast.success("User signup Sucess !!")
+    setEmail("");
+    setMobile("");
+    setPassword("");
+    setfullName("");
 
       
     } catch (error) {
       setErr(error.response.data.message);
       setLoading(false)
+      toast.error("Signup error !!")
       
     }
   }
@@ -186,6 +199,7 @@ const Signup = () => {
             <p className='cursor-pointer text-center mt-6 '>Already have an Account ?  <span onClick={()=>navigate("/signin")} className='text-[#ff4d2d]'>Sign In </span></p>
       </div>
 
+<ToastContainer/>
 
     </div>
   )

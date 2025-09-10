@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import {toast,ToastContainer} from "react-toastify"
+
 import { FaEyeSlash } from "react-icons/fa";
 import { FaRegEye } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -38,10 +40,15 @@ const SignIn = () => {
       }, { withCredentials: true })
       console.log(res)
       setLoading(false)
+      setMobile("");
+      toast.success("User signup Sucess !!")
+
+           
 
     } catch (error) {
       setErr(error.response.data.message)
       setLoading(false)
+       toast.error("Signup error !!")
 
     }
   }
@@ -54,10 +61,17 @@ const SignIn = () => {
       const result = await axios.post(`${serverPath}/api/auth/signin`, { email, password }, { withCredentials: true })
       console.log(result)
       setErr("")
-      setLoading(false)
+      setLoading(false);
+       toast.success("User signin Sucess !!")
+          setEmail("");
+          setMobile("");
+          setPassword("");
+          setfullName("");
     } catch (error) {
       setErr(error.response.data.message)
       setLoading(false)
+            toast.error("Signin error !!")
+      
 
     }
   }
@@ -139,7 +153,7 @@ const SignIn = () => {
         </button>
         <p className='cursor-pointer text-center mt-6 '>Don't  have an Account ?  <span onClick={() => navigate("/signup")} className='text-[#ff4d2d]'>Sign Up </span></p>
       </div>
-
+<ToastContainer/>
 
     </div>
   )
